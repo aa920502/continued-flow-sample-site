@@ -1,0 +1,26 @@
+{
+  "name": "continued-flow-sample-site",
+  "version": "1.0.0",
+  "description": "A sample site showcasing continued flow feature",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aa920502/continued-flow-sample-site.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aa920502/continued-flow-sample-site/issues"
+  },
+  "homepage": "https://github.com/aa920502/continued-flow-sample-site#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.1",
+    "nodemon": "^2.0.19"
+  }
+}
