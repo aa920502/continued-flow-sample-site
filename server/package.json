@@ -20,7 +20,9 @@
   "homepage": "https://github.com/aa920502/continued-flow-sample-site#readme",
   "dependencies": {
     "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
     "express": "^4.18.1",
+    "mongoose": "^6.5.2",
     "nodemon": "^2.0.19"
   }
 }
