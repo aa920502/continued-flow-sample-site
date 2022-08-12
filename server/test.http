@@ -1,0 +1,8 @@
+POST http://localhost:4000/app/signup
+Content-Type: application/json 
+
+{
+    "fullName": "david lu",
+    "username": "continued_flow",
+    "email": "test@#gmail.com"
+}
