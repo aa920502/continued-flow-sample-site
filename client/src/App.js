@@ -38,6 +38,25 @@ function App() {
     }
   }
 
+  async function onSubmit(e) {
+    e.preventDefault();
+    const registered = {
+      fullName: fullName,
+      username: username,
+      email: email,
+    };
+    try {
+      await axios
+        .post("/app/signup", registered)
+        .then((response) => console.log(response.data));
+    } catch (error) {
+      console.log(error);
+    }
+    setFullName("");
+    setUsername("");
+    setEmail("");
+  }
+
   return (
     <div>
       {typeof backendData.users === "undefined" ? (
@@ -57,7 +76,7 @@ function App() {
       </div>
       <div className="container">
         <div className="form-div">
-          <form>
+          <form onSubmit={(e) => onSubmit(e)}>
             <input
               type="text"
               placeholder="Full Name"
