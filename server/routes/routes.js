@@ -2,21 +2,38 @@ const express = require("express");
 const router = express.Router();
 const signUpTemplateCopy = require("../models/SignUpModels");
 
-router.post("/signup", (request, response) => {
+router.get("/", (req, res) => {
+  res.send("This is working!");
+});
+
+router.get("/api", (req, res) => {
+  res.json({
+    users: ["userOne", "userTwo", "userThree"],
+    id: 1,
+    date: "Aug.10.2022",
+  });
+});
+
+router.post("/post_name", async (req, res) => {
+  let { name } = req.body;
+  console.log(`received ${name} from frontend`);
+});
+
+router.post("/signup", (req, res) => {
   console.log(" Received POST request at /signup ");
-  console.log(request.body);
+  console.log(req.body);
   const signedUpUser = new signUpTemplateCopy({
-    fullName: request.body.fullName,
-    username: request.body.username,
-    email: request.body.email,
+    fullName: req.body.fullName,
+    username: req.body.username,
+    email: req.body.email,
   });
   signedUpUser
     .save()
     .then((data) => {
-      response.json(data);
+      res.json(data);
     })
     .catch((error) => {
-      response.json(error);
+      res.json(error);
     });
 });
 

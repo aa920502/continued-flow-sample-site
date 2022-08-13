@@ -48,7 +48,9 @@ function App() {
     try {
       await axios
         .post("/app/signup", registered)
-        .then((response) => console.log(response.data));
+        .then((response) =>
+          console.log("sending registration data: " + response.data)
+        );
     } catch (error) {
       console.log(error);
     }

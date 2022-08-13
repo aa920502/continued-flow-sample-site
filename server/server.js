@@ -21,23 +21,6 @@ app.use(express.json());
 app.use(cors(corsOptions));
 app.use("/app", routeUrls);
 
-app.get("/", (req, res) => {
-  res.send("This is working");
-});
-
-app.get("/api", (req, res) => {
-  res.json({
-    users: ["userOne", "userTwo", "userThree"],
-    id: 1,
-    date: "Aug.10.2022",
-  });
-});
-
-app.post("/post_name", async (req, res) => {
-  let { name } = req.body;
-  console.log(`received ${name} from frontend`);
-});
-
 app.listen(port, () => {
   console.log(`server listening at port ${port}`);
 });
