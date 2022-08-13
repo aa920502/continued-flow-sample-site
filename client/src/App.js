@@ -20,8 +20,9 @@ function App() {
   //     });
   // }, []);
 
+  // use /app/api here instead of /api because we have app.use("/app", routeUrls); in server.js
   useEffect(() => {
-    axios.get("/api").then(function (response) {
+    axios.get("/app/api").then(function (response) {
       setBackendData(response.data);
     });
   }, []);
@@ -30,7 +31,7 @@ function App() {
   async function postName(e) {
     e.preventDefault();
     try {
-      await axios.post("/post_name", {
+      await axios.post("/app/post_name", {
         name,
       });
     } catch (error) {
