@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import Form from "./components/Form";
+import Home from "./components/Home";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 function App() {
   const [backendData, setBackendData] = useState([{}]);
@@ -20,9 +23,8 @@ function App() {
   //     });
   // }, []);
 
-  // use /app/api here instead of /api because we have app.use("/app", routeUrls); in server.js
   useEffect(() => {
-    axios.get("/app/api").then(function (response) {
+    axios.get("/api").then(function (response) {
       setBackendData(response.data);
     });
   }, []);
@@ -31,7 +33,7 @@ function App() {
   async function postName(e) {
     e.preventDefault();
     try {
-      await axios.post("/app/post_name", {
+      await axios.post("/post_name", {
         name,
       });
     } catch (error) {
@@ -48,7 +50,7 @@ function App() {
     };
     try {
       await axios
-        .post("/app/signup", registered)
+        .post("/signup", registered)
         .then((response) =>
           console.log("sending registration data: " + response.data)
         );
@@ -62,6 +64,12 @@ function App() {
 
   return (
     <div>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/form" element={<Form />} />
+        </Routes>
+      </Router>
       {typeof backendData.users === "undefined" ? (
         <p>Loading...</p>
       ) : (

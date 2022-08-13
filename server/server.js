@@ -19,7 +19,8 @@ mongoose.connect(process.env.DATABASE_ACCESS, () =>
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors(corsOptions));
-app.use("/app", routeUrls);
+// we are using / as prepend here
+app.use("/", routeUrls);
 
 app.listen(port, () => {
   console.log(`server listening at port ${port}`);
