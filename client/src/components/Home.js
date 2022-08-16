@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import HomeNavBar from "./HomeNavBar";
 
 function Home() {
   const [backendData, setBackendData] = useState([{}]);
@@ -26,7 +27,9 @@ function Home() {
 
   return (
     <div>
-      <h1>Welcome to the JAVA class!</h1>
+      <div>
+        <HomeNavBar />
+      </div>
       {typeof backendData.users === "undefined" ? (
         <p>Loading...</p>
       ) : (
