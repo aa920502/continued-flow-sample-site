@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { uuseEffect, seState, useEffect } from "react";
 
 import styles from "./RegistrationForm.module.css";
 import Button from "./UI/Button";
 import axios from "axios";
 
-function RegistrationForm() {
+function RegistrationFormWithContinuedFlow() {
   const [addFormData, setAddFormData] = useState({
     name: "",
     email: "",
@@ -165,4 +165,4 @@ function RegistrationForm() {
   );
 }
 
-export default RegistrationForm;
+export default RegistrationFormWithContinuedFlow;
