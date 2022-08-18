@@ -24,8 +24,12 @@ router.post("/signup", (req, res) => {
   console.log(req.body);
   const signedUpUser = new signUpTemplateCopy({
     fullName: req.body.fullName,
-    username: req.body.username,
     email: req.body.email,
+    phone: req.body.phone,
+    city: req.body.city,
+    street: req.body.street,
+    apt: req.body.apt,
+    zipcode: req.body.zipcode,
   });
   signedUpUser
     .save()

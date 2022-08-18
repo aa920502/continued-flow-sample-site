@@ -5,12 +5,28 @@ const signUpTemplate = new mongoose.Schema({
     type: String,
     required: true,
   },
-  username: {
+  email: {
     type: String,
     required: true,
   },
-  email: {
+  phone: {
+    type: Number,
+    required: true,
+  },
+  city: {
     type: String,
+    required: true,
+  },
+  street: {
+    type: String,
+    required: true,
+  },
+  apt: {
+    type: String,
+    required: false,
+  },
+  zipcode: {
+    type: Number,
     required: true,
   },
 });
