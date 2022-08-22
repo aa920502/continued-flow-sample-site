@@ -80,7 +80,6 @@ function HomeSection() {
         ) : (
           backendData.users.map((user, i) => <p key={i}>{user}</p>)
         )}
-        <Link to="/form">Go to form</Link>
       </div>
     </div>
   );
