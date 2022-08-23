@@ -1,9 +1,14 @@
 const express = require("express");
 const router = express.Router();
 const signUpTemplateCopy = require("../models/SignUpModels");
+const server_value = require("../server")
 
 router.get("/", (req, res) => {
-  res.send("This is working!");
+  (async () => {
+    const field_data = await server_value.getRawValue();
+    res.send(field_data);
+  })();
+
 });
 
 router.get("/api", (req, res) => {

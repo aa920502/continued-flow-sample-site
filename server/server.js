@@ -1,3 +1,6 @@
+'use strict';
+const bizSdk = require('facebook-nodejs-business-sdk');
+const Lead = bizSdk.Lead;
 const express = require("express");
 const app = express();
 const port = 4000;
@@ -12,8 +15,43 @@ var corsOptions = {
   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
 
+const api = bizSdk.FacebookAdsApi.init(process.env.ACCESS_TOKEN);
+const showDebugingInfo = true; // Setting this to true shows more debugging info.
+if (showDebugingInfo) {
+  api.setDebug(true);
+}
+
+let url = null;
+const logApiCallResult = (apiCallName, data) => {
+  console.log(apiCallName);
+  url = apiCallName;
+  if (showDebugingInfo) {
+    console.log('Data:' + JSON.stringify(data));
+  }
+};
+
+let fields, params;
+fields = [
+];
+params = {
+};
+
+let sample_code, field_data, response;
+module.exports.getRawValue = async function getRawValue(){
+  sample_code = await (new Lead(process.env.LEAD_ID)).get(
+      fields,
+      params
+  );
+  response = JSON.stringify(sample_code);
+  var obj2 = JSON.parse(response);
+  field_data = obj2._data.field_data;
+  return field_data;
+}
+
+logApiCallResult('sample_code api call complete.', sample_code);
+
 mongoose.connect(process.env.DATABASE_ACCESS, () =>
-  console.log("Database connected")
+    console.log("Database connected")
 );
 
 app.use(express.urlencoded({ extended: true }));
