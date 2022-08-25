@@ -21,9 +21,9 @@ function RegistrationFormWithContinuedFlow() {
     });
   }, []);
 
-  var nameVar = "";
+  var continued_flow_name = "";
   if (!(typeof (JSON.stringify(backendData[1])) == 'undefined')) {
-    nameVar = backendData[1].values;
+    continued_flow_name = backendData[1].values;
   }
 
     const addFormHandler = (event) => {
@@ -89,7 +89,7 @@ function RegistrationFormWithContinuedFlow() {
             placeholder="Full name"
             className={styles.formControl}
             name="name"
-            value={nameVar}
+            value={continued_flow_name}
             onChange={addFormHandler}
             required
           />
