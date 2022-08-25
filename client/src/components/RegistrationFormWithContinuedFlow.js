@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from "react";
+import { useSearchParams } from 'react-router-dom'
 import styles from "./RegistrationForm.module.css";
 import Button from "./UI/Button";
 import axios from "axios";
@@ -16,14 +17,23 @@ function RegistrationFormWithContinuedFlow() {
 
   const [backendData, setBackendData] = useState([{}]);
   useEffect(() => {
-    axios.get("http://localhost:4000/").then(function (response) {
+    axios.get("http://localhost:4000/lead_retrieval").then(function (response) {
       setBackendData(response.data);
     });
   }, []);
 
-  var nameVar = "";
+  const [searchParams, setSearchParams] = useSearchParams();
+  const fb_lead_id = searchParams.get('fbld_id');
+
+  axios.post('/url', {url: fb_lead_id})
+      .then((response) => {
+        console.log(response.data);
+        clear();
+      });
+
+  var continued_flow_name = "";
   if (!(typeof (JSON.stringify(backendData[1])) == 'undefined')) {
-    nameVar = backendData[1].values;
+    continued_flow_name = backendData[1].values;
   }
 
     const addFormHandler = (event) => {
@@ -89,7 +99,7 @@ function RegistrationFormWithContinuedFlow() {
             placeholder="Full name"
             className={styles.formControl}
             name="name"
-            value={nameVar}
+            value={continued_flow_name}
             onChange={addFormHandler}
             required
           />
