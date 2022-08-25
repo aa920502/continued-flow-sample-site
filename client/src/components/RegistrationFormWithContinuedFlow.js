@@ -1,5 +1,4 @@
-import React, { uuseEffect, seState, useEffect } from "react";
-
+import React, {useEffect, useState} from "react";
 import styles from "./RegistrationForm.module.css";
 import Button from "./UI/Button";
 import axios from "axios";
@@ -15,7 +14,19 @@ function RegistrationFormWithContinuedFlow() {
     zipCode: 0,
   });
 
-  const addFormHandler = (event) => {
+  const [backendData, setBackendData] = useState([{}]);
+  useEffect(() => {
+    axios.get("http://localhost:4000/").then(function (response) {
+      setBackendData(response.data);
+    });
+  }, []);
+
+  var nameVar = "";
+  if (!(typeof (JSON.stringify(backendData[1])) == 'undefined')) {
+    nameVar = backendData[1].values;
+  }
+
+    const addFormHandler = (event) => {
     const fieldName = event.target.getAttribute("name");
     const fieldValue = event.target.value;
     const newFormData = { ...addFormData };
@@ -65,7 +76,6 @@ function RegistrationFormWithContinuedFlow() {
       zipCode: 0,
     });
   }
-
   return (
     <div className={styles.justifyContentAround}>
       <form className={styles.formStyle} onSubmit={(e) => onSubmit(e)}>
@@ -75,11 +85,11 @@ function RegistrationFormWithContinuedFlow() {
             Name
           </label>
           <input
-            type="text"
+            type ="text"
             placeholder="Full name"
             className={styles.formControl}
             name="name"
-            value={addFormData.name}
+            value={nameVar}
             onChange={addFormHandler}
             required
           />
@@ -91,7 +101,7 @@ function RegistrationFormWithContinuedFlow() {
             placeholder="Email"
             className={styles.formControl}
             name="email"
-            value={addFormData.email}
+            value={backendData[0].values}
             onChange={addFormHandler}
             required
           />
