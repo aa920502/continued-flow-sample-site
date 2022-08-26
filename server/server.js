@@ -13,7 +13,7 @@ var corsOptions = {
 };
 
 mongoose.connect(process.env.DATABASE_ACCESS, () =>
-  console.log("Database connected")
+    console.log("Database connected")
 );
 
 app.use(express.urlencoded({ extended: true }));

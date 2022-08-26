@@ -1,5 +1,5 @@
-import React, { uuseEffect, seState, useEffect } from "react";
-
+import React, {useEffect, useState} from "react";
+import { useSearchParams } from 'react-router-dom'
 import styles from "./RegistrationForm.module.css";
 import Button from "./UI/Button";
 import axios from "axios";
@@ -15,7 +15,28 @@ function RegistrationFormWithContinuedFlow() {
     zipCode: 0,
   });
 
-  const addFormHandler = (event) => {
+  const [backendData, setBackendData] = useState([{}]);
+  useEffect(() => {
+    axios.get("http://localhost:4000/lead_retrieval").then(function (response) {
+      setBackendData(response.data);
+    });
+  }, []);
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  const fb_lead_id = searchParams.get('fbld_id');
+
+  axios.post('/url', {url: fb_lead_id})
+      .then((response) => {
+        console.log(response.data);
+        clear();
+      });
+
+  var continued_flow_name = "";
+  if (!(typeof (JSON.stringify(backendData[1])) == 'undefined')) {
+    continued_flow_name = backendData[1].values;
+  }
+
+    const addFormHandler = (event) => {
     const fieldName = event.target.getAttribute("name");
     const fieldValue = event.target.value;
     const newFormData = { ...addFormData };
@@ -65,7 +86,6 @@ function RegistrationFormWithContinuedFlow() {
       zipCode: 0,
     });
   }
-
   return (
     <div className={styles.justifyContentAround}>
       <form className={styles.formStyle} onSubmit={(e) => onSubmit(e)}>
@@ -75,11 +95,11 @@ function RegistrationFormWithContinuedFlow() {
             Name
           </label>
           <input
-            type="text"
+            type ="text"
             placeholder="Full name"
             className={styles.formControl}
             name="name"
-            value={addFormData.name}
+            value={continued_flow_name}
             onChange={addFormHandler}
             required
           />
@@ -91,7 +111,7 @@ function RegistrationFormWithContinuedFlow() {
             placeholder="Email"
             className={styles.formControl}
             name="email"
-            value={addFormData.email}
+            value={backendData[0].values}
             onChange={addFormHandler}
             required
           />
