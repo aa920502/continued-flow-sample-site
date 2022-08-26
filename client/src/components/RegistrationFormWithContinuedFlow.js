@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from "react";
-import { useSearchParams } from 'react-router-dom'
+import React, { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import styles from "./RegistrationForm.module.css";
 import Button from "./UI/Button";
 import axios from "axios";
@@ -16,27 +16,27 @@ function RegistrationFormWithContinuedFlow() {
   });
 
   const [backendData, setBackendData] = useState([{}]);
-  useEffect(() => {
-    axios.get("http://localhost:4000/lead_retrieval").then(function (response) {
-      setBackendData(response.data);
-    });
-  }, []);
-
   const [searchParams, setSearchParams] = useSearchParams();
-  const fb_lead_id = searchParams.get('fbld_id');
 
-  axios.post('/url', {url: fb_lead_id})
-      .then((response) => {
-        console.log(response.data);
-        clear();
-      });
+  useEffect(() => {
+    var preFillLeadInfo = async function preFillLeadInfo() {
+      const fb_lead_id = searchParams.get("fbld_id");
+      const lead = { lead_id: parseInt(fb_lead_id) };
+      try {
+        await axios.post("/lead_retrieval", { lead }).then((response) => {
+          console.log(
+            "Receiving lead info from backend and setting up form data"
+          );
+          setBackendData(response.data);
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    preFillLeadInfo();
+  }, [searchParams]);
 
-  var continued_flow_name = "";
-  if (!(typeof (JSON.stringify(backendData[1])) == 'undefined')) {
-    continued_flow_name = backendData[1].values;
-  }
-
-    const addFormHandler = (event) => {
+  const addFormHandler = (event) => {
     const fieldName = event.target.getAttribute("name");
     const fieldValue = event.target.value;
     const newFormData = { ...addFormData };
@@ -95,11 +95,11 @@ function RegistrationFormWithContinuedFlow() {
             Name
           </label>
           <input
-            type ="text"
+            type="text"
             placeholder="Full name"
             className={styles.formControl}
             name="name"
-            value={continued_flow_name}
+            value={backendData[1] != null ? backendData[1].values : ""}
             onChange={addFormHandler}
             required
           />
@@ -111,7 +111,7 @@ function RegistrationFormWithContinuedFlow() {
             placeholder="Email"
             className={styles.formControl}
             name="email"
-            value={backendData[0].values}
+            value={backendData[0] != null ? backendData[0].values : ""}
             onChange={addFormHandler}
             required
           />
