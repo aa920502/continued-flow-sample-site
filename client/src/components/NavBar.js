@@ -24,7 +24,7 @@ function HomeHeader() {
             to="/form?fbld_id=785583589425944"
             className="w3-bar-item w3-button w3-padding-large w3-hide-small"
           >
-            REGISTER
+            FORM
           </NavLink>
           <NavLink
             to="/tutorial"

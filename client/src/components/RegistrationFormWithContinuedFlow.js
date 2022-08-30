@@ -119,6 +119,7 @@ function RegistrationFormWithContinuedFlow() {
             onChange={addFormHandler}
             required
             readOnly="readonly"
+            disabled="disabled"
           />
         </div>
         <div className={styles.formGroup}>
@@ -132,6 +133,7 @@ function RegistrationFormWithContinuedFlow() {
             onChange={addFormHandler}
             required
             readOnly="readonly"
+            disabled="disabled"
           />
         </div>
         <div className={styles.formGroup}>
@@ -145,6 +147,7 @@ function RegistrationFormWithContinuedFlow() {
             onChange={addFormHandler}
             required
             readOnly="readonly"
+            disabled="disabled"
           />
         </div>
         <h3>Address</h3>
@@ -197,7 +200,7 @@ function RegistrationFormWithContinuedFlow() {
           />
         </div>
         <div>
-          <Button type="submit">Add Customer</Button>
+          <Button type="submit">Register</Button>
         </div>
       </form>
     </div>

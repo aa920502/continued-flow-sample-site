@@ -158,7 +158,7 @@ function RegistrationForm() {
           />
         </div>
         <div>
-          <Button type="submit">Add Customer</Button>
+          <Button type="submit">Register</Button>
         </div>
       </form>
     </div>
