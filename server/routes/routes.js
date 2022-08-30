@@ -18,6 +18,7 @@ async function getRawValue(fb_lead_id) {
 }
 
 router.post("/lead_retrieval", (req, res) => {
+  // Lead retrieval API reference: https://developers.facebook.com/docs/marketing-api/guides/lead-ads/retrieving/#bulk-read
   const fb_lead_id = req.body.lead.lead_id;
   console.log("received LEAD ID from frontend: " + fb_lead_id);
   const access_token = process.env.ACCESS_TOKEN;
@@ -51,15 +52,6 @@ router.post("/lead_retrieval", (req, res) => {
   getRawValue();
 });
 
-// Just for test purpose
-router.get("/api", (req, res) => {
-  res.json({
-    users: ["userOne", "userTwo", "userThree"],
-    id: 1,
-    date: "Aug.10.2022",
-  });
-});
-
 router.post("/signup", (req, res) => {
   console.log(" Received POST request at /signup ");
   console.log(req.body);
@@ -80,6 +72,17 @@ router.post("/signup", (req, res) => {
     .catch((error) => {
       res.json(error);
     });
+});
+
+/***
+ * FOR TEST ONLY
+ */
+router.get("/api", (req, res) => {
+  res.json({
+    users: ["userOne", "userTwo", "userThree"],
+    id: 1,
+    date: "Aug.10.2022",
+  });
 });
 
 module.exports = router;
