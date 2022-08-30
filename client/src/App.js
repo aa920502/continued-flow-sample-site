@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import Form from "./components/Form";
 import Home from "./components/Home";
@@ -13,8 +13,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/form" element={<Form />} />
-          <Route path="/tutorial" element={<Tutorial/>} />
-          <Route path="/admin" element={<Admin/>} />
+          <Route path="/tutorial" element={<Tutorial />} />
+          <Route path="/admin" element={<Admin />} />
         </Routes>
       </Router>
     </div>

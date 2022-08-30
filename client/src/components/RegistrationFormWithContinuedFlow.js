@@ -15,8 +15,10 @@ function RegistrationFormWithContinuedFlow() {
     zipCode: 0,
   });
 
-  const [backendData, setBackendData] = useState([{}]);
   const [searchParams, setSearchParams] = useSearchParams();
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
 
   useEffect(() => {
     var preFillLeadInfo = async function preFillLeadInfo() {
@@ -27,7 +29,21 @@ function RegistrationFormWithContinuedFlow() {
           console.log(
             "Receiving lead info from backend and setting up form data"
           );
-          setBackendData(response.data);
+          for (const element of response.data) {
+            switch (element.name) {
+              case "full_name":
+                setName(element.values);
+                break;
+              case "email":
+                setEmail(element.values);
+                break;
+              case "phone_number":
+                setPhoneNumber(element.values);
+                break;
+              default:
+                break;
+            }
+          }
         });
       } catch (error) {
         console.log(error);
@@ -99,9 +115,10 @@ function RegistrationFormWithContinuedFlow() {
             placeholder="Full name"
             className={styles.formControl}
             name="name"
-            value={backendData[1] != null ? backendData[1].values : ""}
+            value={name}
             onChange={addFormHandler}
             required
+            readOnly="readonly"
           />
         </div>
         <div className={styles.formGroup}>
@@ -111,9 +128,10 @@ function RegistrationFormWithContinuedFlow() {
             placeholder="Email"
             className={styles.formControl}
             name="email"
-            value={backendData[0] != null ? backendData[0].values : ""}
+            value={email}
             onChange={addFormHandler}
             required
+            readOnly="readonly"
           />
         </div>
         <div className={styles.formGroup}>
@@ -123,9 +141,10 @@ function RegistrationFormWithContinuedFlow() {
             placeholder="Phone number"
             className={styles.formControl}
             name="phoneNumber"
-            value={addFormData.phoneNumber === 0 ? "" : addFormData.phoneNumber}
+            value={phoneNumber}
             onChange={addFormHandler}
             required
+            readOnly="readonly"
           />
         </div>
         <h3>Address</h3>

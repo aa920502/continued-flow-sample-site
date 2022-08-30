@@ -4,20 +4,20 @@ import RegistrationFormWithContinuedFlow from "./RegistrationFormWithContinuedFl
 function FormSection() {
   return (
     <div className="w3-container w3-content w3-center w3-padding-64">
-      <div class="container">
-        <div class="row">
-          <div class="col border">
+      <div className="container">
+        <div className="row">
+          <div className="col border">
             <h2>Normal Lead form</h2>
           </div>
-          <div class="col border">
+          <div className="col border">
             <h2>Lead form with continued flow</h2>
           </div>
         </div>
-        <div class="row">
-          <div class="col border">
+        <div className="row">
+          <div className="col border">
             <RegistrationForm />
           </div>
-          <div class="col border">
+          <div className="col border">
             <RegistrationFormWithContinuedFlow />
           </div>
         </div>
