@@ -1,5 +1,4 @@
 import React from "react";
-import NavBar from "./NavBar";
 
 import "./formik-demo.css";
 import { withFormik } from "formik";
@@ -8,7 +7,7 @@ import * as Yup from "yup";
 import { DisplayFormikState } from "./code-helper";
 import MySelect from "./MySelect";
 
-function Tutorial() {
+function UserSelectionForm() {
   const formikEnhancer = withFormik({
     validationSchema: Yup.object().shape({
       lead_id: Yup.string()
@@ -122,7 +121,6 @@ function Tutorial() {
 
   return (
     <div>
-      <NavBar />
       <div className="w3-container w3-content w3-padding-64">
         <MyEnhancedForm />
       </div>
@@ -130,4 +128,4 @@ function Tutorial() {
   );
 }
 
-export default Tutorial;
+export default UserSelectionForm;

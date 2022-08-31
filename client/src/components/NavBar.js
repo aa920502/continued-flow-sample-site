@@ -27,12 +27,6 @@ function HomeHeader() {
             FORM
           </NavLink>
           <NavLink
-            to="/tutorial"
-            className="w3-bar-item w3-button w3-padding-large w3-hide-small"
-          >
-            TUTORIAL
-          </NavLink>
-          <NavLink
             to="/admin"
             className="w3-bar-item w3-button w3-padding-large w3-hide-small"
           >
