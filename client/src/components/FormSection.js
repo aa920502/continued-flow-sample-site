@@ -1,24 +1,35 @@
 import React from "react";
 import RegistrationForm from "./RegistrationForm";
 import RegistrationFormWithContinuedFlow from "./RegistrationFormWithContinuedFlow";
+import UserSelectionForm from "./UserSelectionForm";
+import CodeBlock from "./CodeBlock";
+
 function FormSection() {
   return (
-    <div className="w3-container w3-content w3-center w3-padding-64">
-      <div class="container">
-        <div class="row">
-          <div class="col border">
+    <div className="w3-container w3-content  w3-padding-64">
+      <div className="container">
+        <div className="row w3-center">
+          <div className="col ">
             <h2>Normal Lead form</h2>
           </div>
-          <div class="col border">
+          <div className="col ">
             <h2>Lead form with continued flow</h2>
           </div>
         </div>
-        <div class="row">
-          <div class="col border">
+        <div className="row">
+          <div className="col ">
             <RegistrationForm />
           </div>
-          <div class="col border">
+          <div className="col ">
             <RegistrationFormWithContinuedFlow />
+          </div>
+        </div>
+        <div className="row">
+          <UserSelectionForm />
+        </div>
+        <div className="row ">
+          <div className="row">
+            <CodeBlock />
           </div>
         </div>
       </div>
