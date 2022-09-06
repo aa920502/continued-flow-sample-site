@@ -1,12 +1,9 @@
 import React, { useState } from "react";
-import ReactDOM from "react-dom";
 import { CopyBlock, a11yLight } from "react-code-blocks";
-import { sample, TopBar } from "./codeBlocksComponent";
-import "../index.css";
+import { sample, TopBar } from ".";
+import "./styles.css";
 
 function CodeBlock() {
-  //   return <div>CodeBlock</div>;
-
   const [language, changeLanguage] = useState("jsx");
   const [languageDemo, changeDemo] = useState(sample["jsx"]);
   const [lineNumbers, toggleLineNumbers] = useState(true);

@@ -2,7 +2,7 @@ import React from "react";
 import RegistrationForm from "./RegistrationForm";
 import RegistrationFormWithContinuedFlow from "./RegistrationFormWithContinuedFlow";
 import UserSelectionForm from "./UserSelectionForm";
-import CodeBlock from "./CodeBlock";
+import CodeBlock from "./codeBlocksComponent/CodeBlock";
 
 function FormSection() {
   return (

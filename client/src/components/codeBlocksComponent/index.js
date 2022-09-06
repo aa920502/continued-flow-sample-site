@@ -40,6 +40,6 @@ export const themes = {
   zenburn: "zenburn",
 };
 
-export { default as sample } from "./codeblocks";
+export { default as sample } from "./code";
 export { default as Select } from "./Select";
 export { default as TopBar } from "./TopBar";
