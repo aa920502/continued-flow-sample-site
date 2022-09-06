@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import NavBar from "./NavBar";
+import AdminTable from "./AdminTable";
 import axios from "axios";
 
 function Admin() {
@@ -28,15 +29,7 @@ function Admin() {
   return (
     <div>
       <NavBar />
-      <div className="w3-container w3-content w3-center w3-padding-64">
-        <div class="container">
-          {typeof backendData.users === "undefined" ? (
-            <p>Loading...</p>
-          ) : (
-            backendData.users.map((user, i) => <p key={i}>{user}</p>)
-          )}
-        </div>
-      </div>
+      <AdminTable />
     </div>
   );
 }
