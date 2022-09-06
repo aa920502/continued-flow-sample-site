@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import styles from "./RegistrationForm.module.css";
-import Button from "./UI/Button";
+import Button from "./Button";
 import axios from "axios";
 
 function RegistrationFormWithContinuedFlow() {

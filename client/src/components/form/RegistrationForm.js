@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import styles from "./RegistrationForm.module.css";
-import Button from "./UI/Button";
+import Button from "./Button";
 import axios from "axios";
 
 function RegistrationForm() {

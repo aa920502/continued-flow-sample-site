@@ -1,6 +1,6 @@
 import React from "react";
 import NavBar from "./NavBar";
-import FormSection from "./FormSection";
+import FormSection from "./form/FormSection";
 
 function Form() {
   return (
