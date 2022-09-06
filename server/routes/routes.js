@@ -79,4 +79,27 @@ router.post("/signup", (req, res) => {
     });
 });
 
+router.get('/users', function(req, res, next) {
+  signUpTemplateCopy.find((err, users) => {
+    if (!err) {
+      res.send(users);
+    } else {
+      console.log('Error in retrieving data :' + err);
+    }
+  });
+
+});
+
+
+/***
+ * FOR TEST ONLY
+ */
+router.get("/api", (req, res) => {
+  res.json({
+    users: ["userOne", "userTwo", "userThree"],
+    id: 1,
+    date: "Aug.10.2022",
+  });
+});
+
 module.exports = router;
