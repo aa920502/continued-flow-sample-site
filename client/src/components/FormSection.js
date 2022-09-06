@@ -2,6 +2,7 @@ import React from "react";
 import RegistrationForm from "./RegistrationForm";
 import RegistrationFormWithContinuedFlow from "./RegistrationFormWithContinuedFlow";
 import UserSelectionForm from "./UserSelectionForm";
+import CodeBlock from "./CodeBlock";
 
 function FormSection() {
   return (
@@ -25,6 +26,11 @@ function FormSection() {
         </div>
         <div className="row">
           <UserSelectionForm />
+        </div>
+        <div className="row ">
+          <div className="row">
+            <CodeBlock />
+          </div>
         </div>
       </div>
     </div>
