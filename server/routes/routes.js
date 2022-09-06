@@ -74,6 +74,19 @@ router.post("/signup", (req, res) => {
     });
 });
 
+
+router.get('/users', function(req, res, next) {
+  signUpTemplateCopy.find((err, users) => {
+    if (!err) {
+      res.send(users);
+    } else {
+      console.log('Error in retrieving data :' + err);
+    }
+  });
+
+});
+
+
 /***
  * FOR TEST ONLY
  */
