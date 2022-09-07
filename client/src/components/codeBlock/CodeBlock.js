@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { CopyBlock, a11yLight } from "react-code-blocks";
+import { CopyBlock, atomOneLight } from "react-code-blocks";
 import { sample, TopBar } from ".";
 import "./styles.css";
 
@@ -32,7 +32,7 @@ function CodeBlock() {
           language={language}
           text={languageDemo}
           showLineNumbers={lineNumbers}
-          theme={a11yLight}
+          theme={atomOneLight}
           wrapLines={true}
           codeBlock
         />
@@ -41,7 +41,7 @@ function CodeBlock() {
           language="go"
           text={`v := Vertex{X: 1, Y: 2}`}
           codeBlock
-          theme={a11yLight}
+          theme={atomOneLight}
           showLineNumbers={false}
         />
       </div>

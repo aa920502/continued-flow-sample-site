@@ -74,18 +74,16 @@ router.post("/signup", (req, res) => {
     });
 });
 
-
-router.get('/users', function(req, res, next) {
-  signUpTemplateCopy.find((err, users) => {
+// read all records from the table
+router.get("/records", function (req, res, next) {
+  signUpTemplateCopy.find((err, records) => {
     if (!err) {
-      res.send(users);
+      res.send(records);
     } else {
-      console.log('Error in retrieving data :' + err);
+      console.log("Error in retrieving data :" + err);
     }
   });
-
 });
-
 
 /***
  * FOR TEST ONLY
