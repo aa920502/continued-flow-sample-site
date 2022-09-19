@@ -10,16 +10,17 @@ function RegistrationFormWithContinuedFlow() {
     street: "",
     aptNumber: "",
     zipCode: "",
+    lead_id: "",
   });
 
   const [searchParams, setSearchParams] = useSearchParams();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState(0);
+  const fb_lead_id = searchParams.get("fbld_id");
 
   useEffect(() => {
     var preFillLeadInfo = async function preFillLeadInfo() {
-      const fb_lead_id = searchParams.get("fbld_id");
       const lead = { lead_id: parseInt(fb_lead_id) };
       try {
         await axios.post("/lead_retrieval", { lead }).then((response) => {
@@ -76,6 +77,7 @@ function RegistrationFormWithContinuedFlow() {
       street: addFormData.street,
       apt: addFormData.aptNumber,
       zipcode: addFormData.zipCode,
+      lead_id: fb_lead_id,
     };
     console.log("registered:");
     console.log(registered);
