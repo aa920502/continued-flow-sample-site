@@ -63,6 +63,7 @@ router.post("/signup", (req, res) => {
     street: req.body.street,
     apt: req.body.apt,
     zipcode: req.body.zipcode,
+    lead_id: req.body.lead_id,
   });
   signedUpUser
     .save()

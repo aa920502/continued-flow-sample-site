@@ -13,6 +13,7 @@ function RegistrationForm() {
     street: "",
     aptNumber: "",
     zipCode: "",
+    lead_id: "",
   });
 
   const addFormHandler = (event) => {
@@ -43,6 +44,7 @@ function RegistrationForm() {
       street: addFormData.street,
       apt: addFormData.aptNumber,
       zipcode: addFormData.zipCode,
+      lead_id: "NA"
     };
     try {
       await axios.post("/signup", registered).then((response) => {
@@ -63,6 +65,7 @@ function RegistrationForm() {
       street: "",
       aptNumber: "",
       zipCode: "",
+      lead_id: "",
     });
   }
 
