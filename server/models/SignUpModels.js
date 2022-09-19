@@ -26,7 +26,7 @@ const signUpTemplate = new mongoose.Schema({
     required: false,
   },
   zipcode: {
-    type: Number,
+    type: String,
     required: true,
   },
 });

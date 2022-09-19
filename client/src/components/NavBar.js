@@ -10,7 +10,9 @@ function HomeHeader() {
         <div className="w3-bar w3-black w3-card">
           <NavLink
             className="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right"
-            to="javascript:void(0)"
+            to={(e) => {
+              e.preventDefault();
+            }}
             title="Toggle Navigation Menu"
           >
             <i className="fa fa-bars"></i>
@@ -19,16 +21,10 @@ function HomeHeader() {
             HOME
           </NavLink>
           <NavLink
-            to="/form?fbld_id=1138279943700099"
+            to="/form?fbld_id=785583589425944"
             className="w3-bar-item w3-button w3-padding-large w3-hide-small"
           >
-            REGISTER
-          </NavLink>
-          <NavLink
-            to="/tutorial"
-            className="w3-bar-item w3-button w3-padding-large w3-hide-small"
-          >
-            TUTORIAL
+            FORM
           </NavLink>
           <NavLink
             to="/admin"
@@ -37,7 +33,9 @@ function HomeHeader() {
             ADMIN
           </NavLink>
           <NavLink
-            to="javascript:void(0)"
+            to={(e) => {
+              e.preventDefault();
+            }}
             className="w3-padding-large w3-hover-red w3-hide-small w3-right"
           >
             <i className="fa fa-search"></i>

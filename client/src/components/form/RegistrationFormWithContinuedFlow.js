@@ -1,25 +1,60 @@
-import React, { useState } from "react";
-
+import React, { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import styles from "./RegistrationForm.module.css";
-import Button from "./UI/Button";
+import Button from "./Button";
 import axios from "axios";
 
-function RegistrationForm() {
+function RegistrationFormWithContinuedFlow() {
   const [addFormData, setAddFormData] = useState({
-    name: "",
-    email: "",
-    phoneNumber: 0,
     city: "",
     street: "",
     aptNumber: "",
-    zipCode: 0,
+    zipCode: "",
   });
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState(0);
+
+  useEffect(() => {
+    var preFillLeadInfo = async function preFillLeadInfo() {
+      const fb_lead_id = searchParams.get("fbld_id");
+      const lead = { lead_id: parseInt(fb_lead_id) };
+      try {
+        await axios.post("/lead_retrieval", { lead }).then((response) => {
+          console.log(
+            "Receiving lead info from backend and setting up form data"
+          );
+          console.log("reading lead retrieval info: " + response.data);
+          for (const element of response.data) {
+            switch (element.name) {
+              case "full_name":
+                setName(element.values[0]);
+                break;
+              case "email":
+                setEmail(element.values[0]);
+                break;
+              case "phone_number":
+                setPhoneNumber(parseInt(element.values[0].substr(1)));
+                break;
+              default:
+                break;
+            }
+          }
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    preFillLeadInfo();
+  }, [searchParams]);
 
   const addFormHandler = (event) => {
     const fieldName = event.target.getAttribute("name");
     const fieldValue = event.target.value;
     const newFormData = { ...addFormData };
-    if (fieldName === "phoneNumber" || fieldName === "zipCode") {
+    if (fieldName === "phoneNumber") {
       let x = parseInt(event.target.value);
       console.log(typeof x);
       console.log(x);
@@ -32,18 +67,18 @@ function RegistrationForm() {
 
   async function onSubmit(e) {
     e.preventDefault();
-    console.log("SUBMITTED!");
-    console.log(addFormData);
     console.log("Sending to MongoDB");
     const registered = {
-      fullName: addFormData.name,
-      email: addFormData.email,
-      phone: addFormData.phoneNumber,
+      fullName: name,
+      email: email,
+      phone: phoneNumber,
       city: addFormData.city,
       street: addFormData.street,
       apt: addFormData.aptNumber,
       zipcode: addFormData.zipCode,
     };
+    console.log("registered:");
+    console.log(registered);
     try {
       await axios.post("/signup", registered).then((response) => {
         console.log(response.data);
@@ -56,16 +91,12 @@ function RegistrationForm() {
 
   function clear() {
     setAddFormData({
-      name: "",
-      email: "",
-      phoneNumber: 0,
       city: "",
       street: "",
       aptNumber: "",
-      zipCode: 0,
+      zipCode: "",
     });
   }
-
   return (
     <div className={styles.justifyContentAround}>
       <form className={styles.formStyle} onSubmit={(e) => onSubmit(e)}>
@@ -79,9 +110,10 @@ function RegistrationForm() {
             placeholder="Full name"
             className={styles.formControl}
             name="name"
-            value={addFormData.name}
-            onChange={addFormHandler}
+            value={name}
             required
+            readOnly="readonly"
+            disabled="disabled"
           />
         </div>
         <div className={styles.formGroup}>
@@ -91,9 +123,10 @@ function RegistrationForm() {
             placeholder="Email"
             className={styles.formControl}
             name="email"
-            value={addFormData.email}
-            onChange={addFormHandler}
+            value={email}
             required
+            readOnly="readonly"
+            disabled="disabled"
           />
         </div>
         <div className={styles.formGroup}>
@@ -103,9 +136,10 @@ function RegistrationForm() {
             placeholder="Phone number"
             className={styles.formControl}
             name="phoneNumber"
-            value={addFormData.phoneNumber === 0 ? "" : addFormData.phoneNumber}
-            onChange={addFormHandler}
+            value={phoneNumber}
             required
+            readOnly="readonly"
+            disabled="disabled"
           />
         </div>
         <h3>Address</h3>
@@ -152,17 +186,17 @@ function RegistrationForm() {
             placeholder="Zip code"
             className={styles.formControl}
             name="zipCode"
-            value={addFormData.zipCode === 0 ? "" : addFormData.zipCode}
+            value={addFormData.zipCode}
             onChange={addFormHandler}
             required
           />
         </div>
         <div>
-          <Button type="submit">Add Customer</Button>
+          <Button type="submit">Register</Button>
         </div>
       </form>
     </div>
   );
 }
 
-export default RegistrationForm;
+export default RegistrationFormWithContinuedFlow;

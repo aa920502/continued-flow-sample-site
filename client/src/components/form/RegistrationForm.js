@@ -1,10 +1,10 @@
-import React, { uuseEffect, seState, useEffect } from "react";
+import React, { useState } from "react";
 
 import styles from "./RegistrationForm.module.css";
-import Button from "./UI/Button";
+import Button from "./Button";
 import axios from "axios";
 
-function RegistrationFormWithContinuedFlow() {
+function RegistrationForm() {
   const [addFormData, setAddFormData] = useState({
     name: "",
     email: "",
@@ -12,14 +12,14 @@ function RegistrationFormWithContinuedFlow() {
     city: "",
     street: "",
     aptNumber: "",
-    zipCode: 0,
+    zipCode: "",
   });
 
   const addFormHandler = (event) => {
     const fieldName = event.target.getAttribute("name");
     const fieldValue = event.target.value;
     const newFormData = { ...addFormData };
-    if (fieldName === "phoneNumber" || fieldName === "zipCode") {
+    if (fieldName === "phoneNumber") {
       let x = parseInt(event.target.value);
       console.log(typeof x);
       console.log(x);
@@ -62,7 +62,7 @@ function RegistrationFormWithContinuedFlow() {
       city: "",
       street: "",
       aptNumber: "",
-      zipCode: 0,
+      zipCode: "",
     });
   }
 
@@ -152,17 +152,17 @@ function RegistrationFormWithContinuedFlow() {
             placeholder="Zip code"
             className={styles.formControl}
             name="zipCode"
-            value={addFormData.zipCode === 0 ? "" : addFormData.zipCode}
+            value={addFormData.zipCode}
             onChange={addFormHandler}
             required
           />
         </div>
         <div>
-          <Button type="submit">Add Customer</Button>
+          <Button type="submit">Register</Button>
         </div>
       </form>
     </div>
   );
 }
 
-export default RegistrationFormWithContinuedFlow;
+export default RegistrationForm;

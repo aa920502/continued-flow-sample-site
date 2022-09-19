@@ -1,22 +1,55 @@
+"use strict";
+const bizSdk = require("facebook-nodejs-business-sdk");
+const Lead = bizSdk.Lead;
 const express = require("express");
 const router = express.Router();
 const signUpTemplateCopy = require("../models/SignUpModels");
 
-router.get("/", (req, res) => {
-  res.send("This is working!");
-});
+async function getRawValue(fb_lead_id) {
+  let fields, params;
+  fields = [];
+  params = {};
+  let lead_ad_response, field_data, lead_ad_response_json;
+  lead_ad_response = await new Lead(fb_lead_id).get(fields, params);
+  lead_ad_response_json = JSON.stringify(lead_ad_response);
+  var lead_ad_response_fields = JSON.parse(lead_ad_response_json);
+  field_data = lead_ad_response_fields._data.field_data;
+  res.send(field_data);
+}
 
-router.get("/api", (req, res) => {
-  res.json({
-    users: ["userOne", "userTwo", "userThree"],
-    id: 1,
-    date: "Aug.10.2022",
-  });
-});
+router.post("/lead_retrieval", (req, res) => {
+  // Lead retrieval API reference: https://developers.facebook.com/docs/marketing-api/guides/lead-ads/retrieving/#bulk-read
+  const fb_lead_id = req.body.lead.lead_id;
+  console.log("received LEAD ID from frontend: " + fb_lead_id);
+  const access_token = process.env.ACCESS_TOKEN;
+  const api = bizSdk.FacebookAdsApi.init(access_token);
+  const showDebugingInfo = true; // Setting this to true shows more debugging info.
+  if (showDebugingInfo) {
+    api.setDebug(true);
+  }
+  const logApiCallResult = (apiCallName, data) => {
+    console.log(apiCallName);
+    if (showDebugingInfo) {
+      console.log("Data:" + JSON.stringify(data));
+    }
+  };
+  let fields, params;
+  fields = [];
+  params = {};
 
-router.post("/post_name", async (req, res) => {
-  let { name } = req.body;
-  console.log(`received ${name} from frontend`);
+  let lead_ad_response, field_data, lead_ad_response_json;
+  var getRawValue = async function getRawValue() {
+    lead_ad_response = await new Lead(fb_lead_id.toString()).get(
+      fields,
+      params
+    );
+    lead_ad_response_json = JSON.stringify(lead_ad_response);
+    var lead_ad_response_fields = JSON.parse(lead_ad_response_json);
+    field_data = lead_ad_response_fields._data.field_data;
+    res.send(field_data);
+    logApiCallResult(" api call complete.", lead_ad_response);
+  };
+  getRawValue();
 });
 
 router.post("/signup", (req, res) => {
@@ -39,6 +72,28 @@ router.post("/signup", (req, res) => {
     .catch((error) => {
       res.json(error);
     });
+});
+
+// read all records from the table
+router.get("/records", function (req, res, next) {
+  signUpTemplateCopy.find((err, records) => {
+    if (!err) {
+      res.send(records);
+    } else {
+      console.log("Error in retrieving data :" + err);
+    }
+  });
+});
+
+/***
+ * FOR TEST ONLY
+ */
+router.get("/api", (req, res) => {
+  res.json({
+    users: ["userOne", "userTwo", "userThree"],
+    id: 1,
+    date: "Aug.10.2022",
+  });
 });
 
 module.exports = router;
