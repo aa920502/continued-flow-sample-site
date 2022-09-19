@@ -12,14 +12,14 @@ function RegistrationForm() {
     city: "",
     street: "",
     aptNumber: "",
-    zipCode: 0,
+    zipCode: "",
   });
 
   const addFormHandler = (event) => {
     const fieldName = event.target.getAttribute("name");
     const fieldValue = event.target.value;
     const newFormData = { ...addFormData };
-    if (fieldName === "phoneNumber" || fieldName === "zipCode") {
+    if (fieldName === "phoneNumber") {
       let x = parseInt(event.target.value);
       console.log(typeof x);
       console.log(x);
@@ -62,7 +62,7 @@ function RegistrationForm() {
       city: "",
       street: "",
       aptNumber: "",
-      zipCode: 0,
+      zipCode: "",
     });
   }
 
@@ -152,7 +152,7 @@ function RegistrationForm() {
             placeholder="Zip code"
             className={styles.formControl}
             name="zipCode"
-            value={addFormData.zipCode === 0 ? "" : addFormData.zipCode}
+            value={addFormData.zipCode}
             onChange={addFormHandler}
             required
           />

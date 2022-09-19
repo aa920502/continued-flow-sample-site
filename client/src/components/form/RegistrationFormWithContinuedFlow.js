@@ -6,19 +6,16 @@ import axios from "axios";
 
 function RegistrationFormWithContinuedFlow() {
   const [addFormData, setAddFormData] = useState({
-    name: "",
-    email: "",
-    phoneNumber: 0,
     city: "",
     street: "",
     aptNumber: "",
-    zipCode: 0,
+    zipCode: "",
   });
 
   const [searchParams, setSearchParams] = useSearchParams();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState(0);
 
   useEffect(() => {
     var preFillLeadInfo = async function preFillLeadInfo() {
@@ -29,16 +26,17 @@ function RegistrationFormWithContinuedFlow() {
           console.log(
             "Receiving lead info from backend and setting up form data"
           );
+          console.log("reading lead retrieval info: " + response.data);
           for (const element of response.data) {
             switch (element.name) {
               case "full_name":
-                setName(element.values);
+                setName(element.values[0]);
                 break;
               case "email":
-                setEmail(element.values);
+                setEmail(element.values[0]);
                 break;
               case "phone_number":
-                setPhoneNumber(element.values);
+                setPhoneNumber(parseInt(element.values[0].substr(1)));
                 break;
               default:
                 break;
@@ -56,7 +54,7 @@ function RegistrationFormWithContinuedFlow() {
     const fieldName = event.target.getAttribute("name");
     const fieldValue = event.target.value;
     const newFormData = { ...addFormData };
-    if (fieldName === "phoneNumber" || fieldName === "zipCode") {
+    if (fieldName === "phoneNumber") {
       let x = parseInt(event.target.value);
       console.log(typeof x);
       console.log(x);
@@ -69,18 +67,18 @@ function RegistrationFormWithContinuedFlow() {
 
   async function onSubmit(e) {
     e.preventDefault();
-    console.log("SUBMITTED!");
-    console.log(addFormData);
     console.log("Sending to MongoDB");
     const registered = {
-      fullName: addFormData.name,
-      email: addFormData.email,
-      phone: addFormData.phoneNumber,
+      fullName: name,
+      email: email,
+      phone: phoneNumber,
       city: addFormData.city,
       street: addFormData.street,
       apt: addFormData.aptNumber,
       zipcode: addFormData.zipCode,
     };
+    console.log("registered:");
+    console.log(registered);
     try {
       await axios.post("/signup", registered).then((response) => {
         console.log(response.data);
@@ -93,13 +91,10 @@ function RegistrationFormWithContinuedFlow() {
 
   function clear() {
     setAddFormData({
-      name: "",
-      email: "",
-      phoneNumber: 0,
       city: "",
       street: "",
       aptNumber: "",
-      zipCode: 0,
+      zipCode: "",
     });
   }
   return (
@@ -116,7 +111,6 @@ function RegistrationFormWithContinuedFlow() {
             className={styles.formControl}
             name="name"
             value={name}
-            onChange={addFormHandler}
             required
             readOnly="readonly"
             disabled="disabled"
@@ -130,7 +124,6 @@ function RegistrationFormWithContinuedFlow() {
             className={styles.formControl}
             name="email"
             value={email}
-            onChange={addFormHandler}
             required
             readOnly="readonly"
             disabled="disabled"
@@ -144,7 +137,6 @@ function RegistrationFormWithContinuedFlow() {
             className={styles.formControl}
             name="phoneNumber"
             value={phoneNumber}
-            onChange={addFormHandler}
             required
             readOnly="readonly"
             disabled="disabled"
@@ -194,7 +186,7 @@ function RegistrationFormWithContinuedFlow() {
             placeholder="Zip code"
             className={styles.formControl}
             name="zipCode"
-            value={addFormData.zipCode === 0 ? "" : addFormData.zipCode}
+            value={addFormData.zipCode}
             onChange={addFormHandler}
             required
           />
