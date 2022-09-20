@@ -29,6 +29,10 @@ const signUpTemplate = new mongoose.Schema({
     type: String,
     required: true,
   },
+  lead_id: {
+    type: String,
+    required: true,
+  },
 });
 
 module.exports = mongoose.model("myTable", signUpTemplate);

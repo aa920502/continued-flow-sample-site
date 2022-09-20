@@ -21,6 +21,7 @@ function AdminTable() {
         <td>{user.city}</td>
         <td>{user.street}</td>
         <td>{user.zipcode}</td>
+        <td>{user.lead_id}</td>
       </tr>
     );
   });
@@ -37,6 +38,7 @@ function AdminTable() {
             <th>City</th>
             <th>Street</th>
             <th>Zipcode</th>
+            <th>Lead Id</th>
           </tr>
         </thead>
         <tbody>{rows}</tbody>
