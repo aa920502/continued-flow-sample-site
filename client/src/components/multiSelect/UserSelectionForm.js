@@ -3,11 +3,15 @@ import React from "react";
 import "./formik-demo.css";
 import { withFormik } from "formik";
 import * as Yup from "yup";
-
-import { DisplayFormikState } from "./code-helper";
+import {useState } from "react";
 import MySelect from "./MySelect";
+import OptionValue from "./OptionValue";
+import { CopyBlock, atomOneLight, Code } from "react-code-blocks";
+import CodeSnippets from "./CopeSnippets";
+
 
 function UserSelectionForm() {
+  const [user, setUser] = useState("");
   const formikEnhancer = withFormik({
     validationSchema: Yup.object().shape({
       lead_id: Yup.string()
@@ -27,14 +31,8 @@ function UserSelectionForm() {
       fields: [],
     }),
     handleSubmit: (values, { setSubmitting }) => {
-      const payload = {
-        ...values,
-        fields: values.fields.map((t) => t.value),
-      };
-      setTimeout(() => {
-        alert(JSON.stringify(payload, null, 2));
-        setSubmitting(false);
-      }, 1000);
+      var code_snippet = CodeSnippets(values.lead_id, values.options.value, values.fields);
+      setUser(code_snippet);
     },
     setFieldValue: (values) => {
       console.log("test");
@@ -56,10 +54,8 @@ function UserSelectionForm() {
       setFieldTouched,
       isSubmitting,
     } = props;
-    console.log(props.values);
 
     let output = parseInput(props.values.fields).join();
-
     return (
       <form onSubmit={handleSubmit}>
         <label htmlFor="lead_id" style={{ display: "block" }}>
@@ -85,6 +81,9 @@ function UserSelectionForm() {
           error={errors.fields}
           touched={touched.fields}
         />
+        <OptionValue 
+          onChange={setFieldValue}
+        />
         <button
           type="button"
           className="outline"
@@ -96,11 +95,13 @@ function UserSelectionForm() {
         <button type="submit" disabled={isSubmitting}>
           Submit
         </button>
-
-        <DisplayFormikState {...props} />
-        <div>
-          <h1>Fields to prefill: {output}</h1>
-        </div>
+        <CopyBlock
+          language="go"
+          text={user}
+          codeBlock
+          theme={atomOneLight}
+          showLineNumbers={false}
+        />
       </form>
     );
 
