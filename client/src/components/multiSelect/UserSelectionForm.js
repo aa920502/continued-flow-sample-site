@@ -8,11 +8,12 @@ import MySelect from "./MySelect";
 import { CopyBlock, atomOneLight, Code } from "react-code-blocks";
 import CodeSnippets from "../codeBlock/CopeSnippets";
 
-
 function UserSelectionForm() {
   const [leadRetrieval, setLeadRetrieval] = useState("");
   const [leadParse, setLeadParse] = useState("");
   const [leadQuality, setLeadQuality] = useState("");
+  const [user, setUser] = useState("");
+
   const formikEnhancer = withFormik({
     validationSchema: Yup.object().shape({
       lead_id: Yup.string()
@@ -99,6 +100,7 @@ function UserSelectionForm() {
         <CopyBlock className="inline-block"
           language="go"
           text={leadRetrieval}
+          text={user}
           codeBlock
           theme={atomOneLight}
           showLineNumbers={false}
@@ -120,7 +122,6 @@ function UserSelectionForm() {
           showLineNumbers={false}
         />
         </div>
-   
       </form>
     );
 
