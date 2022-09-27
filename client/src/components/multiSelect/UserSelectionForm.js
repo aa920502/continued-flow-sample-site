@@ -3,11 +3,17 @@ import React from "react";
 import "./formik-demo.css";
 import { withFormik } from "formik";
 import * as Yup from "yup";
-
-import { DisplayFormikState } from "./code-helper";
+import {useState } from "react";
 import MySelect from "./MySelect";
+import { CopyBlock, atomOneLight, Code } from "react-code-blocks";
+import CodeSnippets from "../codeBlock/CopeSnippets";
 
 function UserSelectionForm() {
+  const [leadRetrieval, setLeadRetrieval] = useState("");
+  const [leadParse, setLeadParse] = useState("");
+  const [leadQuality, setLeadQuality] = useState("");
+  const [user, setUser] = useState("");
+
   const formikEnhancer = withFormik({
     validationSchema: Yup.object().shape({
       lead_id: Yup.string()
@@ -27,14 +33,9 @@ function UserSelectionForm() {
       fields: [],
     }),
     handleSubmit: (values, { setSubmitting }) => {
-      const payload = {
-        ...values,
-        fields: values.fields.map((t) => t.value),
-      };
-      setTimeout(() => {
-        alert(JSON.stringify(payload, null, 2));
-        setSubmitting(false);
-      }, 1000);
+      setLeadRetrieval("Lead Retrieval");
+      setLeadParse(CodeSnippets(values.lead_id, "LPR", values.fields));
+      setLeadQuality(CodeSnippets(values.lead_id, "LAQ", values.fields));
     },
     setFieldValue: (values) => {
       console.log("test");
@@ -56,10 +57,8 @@ function UserSelectionForm() {
       setFieldTouched,
       isSubmitting,
     } = props;
-    console.log(props.values);
 
     let output = parseInput(props.values.fields).join();
-
     return (
       <form onSubmit={handleSubmit}>
         <label htmlFor="lead_id" style={{ display: "block" }}>
@@ -96,10 +95,32 @@ function UserSelectionForm() {
         <button type="submit" disabled={isSubmitting}>
           Submit
         </button>
-
-        <DisplayFormikState {...props} />
-        <div>
-          <h1>Fields to prefill: {output}</h1>
+        <div className="code_block">  
+        <h4>Lead Retrieval</h4>
+        <CopyBlock className="inline-block"
+          language="go"
+          text={leadRetrieval}
+          text={user}
+          codeBlock
+          theme={atomOneLight}
+          showLineNumbers={false}
+        />
+        <h4>Lead Parse and Prefill</h4>
+        <CopyBlock className="inline-block"
+          language="go"
+          text={leadParse}
+          codeBlock
+          theme={atomOneLight}
+          showLineNumbers={false}
+        />
+        <h4>Lead Ads Quality Integration</h4>
+        <CopyBlock className="inline-block"
+          language="go"
+          text={leadQuality}
+          codeBlock
+          theme={atomOneLight}
+          showLineNumbers={false}
+        />
         </div>
       </form>
     );
