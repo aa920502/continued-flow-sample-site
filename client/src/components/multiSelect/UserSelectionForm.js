@@ -100,7 +100,6 @@ function UserSelectionForm() {
         <CopyBlock className="inline-block"
           language="go"
           text={leadRetrieval}
-          text={user}
           codeBlock
           theme={atomOneLight}
           showLineNumbers={false}
