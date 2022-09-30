@@ -18,11 +18,8 @@ export default function CodeSnippets(lead_id, option, fields){
             var prefill_information = "";
             var set_prefill_statements = "";
             fields.forEach(function (item, index) {
-                console.log(item);
-                console.log(typeof(JSON.stringify(item)));
                 prefill_information += set_function_map[item.value];
                 set_prefill_statements += set_statements[item.value];
-                console.log(prefill_information);
             });
 
 
