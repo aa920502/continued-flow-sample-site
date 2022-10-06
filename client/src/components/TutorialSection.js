@@ -9,11 +9,6 @@ function TutorialSection() {
         <div className="row">
           <UserSelectionForm />
         </div>
-        <div className="row ">
-          <div className="row">
-            <CodeBlock />
-          </div>
-        </div>
       </div>
     </div>
   );

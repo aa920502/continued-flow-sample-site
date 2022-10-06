@@ -3,6 +3,7 @@ import { CopyBlock, atomOneLight } from "react-code-blocks";
 import { sample, TopBar } from ".";
 import "./styles.css";
 
+// NOTE: This component is NOT being used!!!
 function CodeBlock() {
   const [language, changeLanguage] = useState("jsx");
   const [languageDemo, changeDemo] = useState(sample["jsx"]);
