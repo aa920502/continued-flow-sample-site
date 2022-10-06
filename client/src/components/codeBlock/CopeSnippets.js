@@ -31,13 +31,13 @@ export default function CodeSnippets(lead_id, option, fields) {
         "\tconst showDebugingInfo = true; // Setting this to true shows more debugging info.\n" +
         "\tif (showDebugingInfo) {\n" +
         "\t\t api.setDebug(true);\n" +
-        "\t}" +
+        "\t} \n" +
         "\tconst logApiCallResult = (apiCallName, data) => {\n" +
         "\t\tconsole.log(apiCallName);\n" +
         "\t\tif (showDebugingInfo) {\n" +
         '\t\t\tconsole.log("Data:" + JSON.stringify(data));\n' +
         "\t\t}\n" +
-        "\t};" +
+        "\t}; \n" +
         "\tlet fields, params;\n" +
         "\tfields = [];\n" +
         "\tparams = {};\n" +
@@ -54,7 +54,7 @@ export default function CodeSnippets(lead_id, option, fields) {
         '\t\tlogApiCallResult(" api call complete.", lead_ad_response);\n' +
         "\t};\n" +
         "\tgetRawValue();\n" +
-        "\t})\n"
+        "})\n"
       );
 
     case "LPR":
