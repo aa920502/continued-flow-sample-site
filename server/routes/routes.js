@@ -76,26 +76,36 @@ router.post("/signup", (req, res) => {
       res.json(error);
     });
 });
-// read all records from the table
-router.get("/records", function (req, res, next) {
-  signUpTemplate.find((err, records) => {
-    if (!err) {
-      res.send(records);
-    } else {
-      console.log("Error in retrieving data :" + err);
-    }
+// read all records from the table in MongoDB
+router.get("/records", async function (req, res, next) {
+  signUpTemplate.find().then((data) => {
+    console.log(data);
+    res.send(data);
+  }).catch((error) => {
+    console.log(error);
+
+
+
+    // try {
+    //   const records = await findRecord();
+    //   res.send(records);
+    // } catch (error) {
+    //   console.log("Error in retrieving data:", error);
+    //   res.status(500).send("Error in retrieving data");
+    // }
   });
 });
 
-/***
- * FOR TEST ONLY
- */
-router.get("/api", (req, res) => {
-  res.json({
-    users: ["userOne", "userTwo", "userThree"],
-    id: 1,
-    date: "Aug.10.2022",
-  });
-});
+async function findRecord() {
+  try {
+    const records = await signUpTemplate.find().exec();
+    console.log(records);
+    return records;
+  } catch (error) {
+    console.log("Error in retrieving data:", error);
+    throw error;
+  }
+}
+
 
 module.exports = router;

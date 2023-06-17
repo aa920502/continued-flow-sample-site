@@ -12,9 +12,16 @@ var corsOptions = {
   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
 
-mongoose.connect(process.env.DATABASE_ACCESS, () =>
-  console.log("Database connected")
-);
+console.log("connecting to MongoDB...");
+mongoose.connect(process.env.DATABASE_ACCESS)
+  .then(() => {
+    console.log("Database successfully connected");
+    // Continue with your application logic here
+  })
+  .catch((error) => {
+    console.error("Error connecting to database:", error);
+    // Handle the error
+  });
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());

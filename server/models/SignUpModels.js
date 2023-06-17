@@ -1,38 +1,20 @@
 const mongoose = require("mongoose");
 
-const signUpTemplate = new mongoose.Schema({
-  fullName: {
-    type: String,
-    required: true,
-  },
-  email: {
-    type: String,
-    required: true,
-  },
-  phone: {
-    type: Number,
-    required: true,
-  },
-  city: {
-    type: String,
-    required: true,
-  },
-  street: {
-    type: String,
-    required: true,
-  },
-  apt: {
-    type: String,
-    required: false,
-  },
-  zipcode: {
-    type: String,
-    required: true,
-  },
-  lead_id: {
-    type: String,
-    required: true,
-  },
+// const leadFormSchema = new mongoose.Schema({
+//   fullName: String,
+//   email: String,
+//   phone: Number,
+//   city: String,
+//   street: String,
+//   apt: String,
+//   zipcode: String,
+//   lead_id: String
+// });
+
+const leadFormSchema = new mongoose.Schema({
+  name: String,
+  lead: String,
 });
 
-module.exports = mongoose.model("myTable", signUpTemplate);
+// module.exports = mongoose.model("myTable", leadFormSchema);
+module.exports = mongoose.model("Demo", leadFormSchema), "demo";
