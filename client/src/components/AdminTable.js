@@ -6,6 +6,7 @@ function AdminTable() {
   const [backendData, setBackendData] = useState([{}]);
   useEffect(() => {
     axios.get("/records").then(function (response) {
+      console.log(response);
       setBackendData(response.data);
     });
   }, []);
