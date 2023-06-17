@@ -32,6 +32,10 @@ function HomeHeader() {
           >
             ADMIN
           </NavLink>
+
+          <NavLink to="/test" className="w3-bar-item w3-button w3-padding-large">
+            TEST
+          </NavLink>
           <NavLink
             to={(e) => {
               e.preventDefault();

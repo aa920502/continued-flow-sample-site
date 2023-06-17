@@ -3,7 +3,7 @@ const bizSdk = require("facebook-nodejs-business-sdk");
 const Lead = bizSdk.Lead;
 const express = require("express");
 const router = express.Router();
-const signUpTemplateCopy = require("../models/SignUpModels");
+const signUpTemplate = require("../models/SignUpModels");
 
 async function getRawValue(fb_lead_id) {
   let fields, params;
@@ -17,6 +17,7 @@ async function getRawValue(fb_lead_id) {
   res.send(field_data);
 }
 
+// Make API request to marketing API to request lead content with lead ID
 router.post("/lead_retrieval", (req, res) => {
   // Lead retrieval API reference: https://developers.facebook.com/docs/marketing-api/guides/lead-ads/retrieving/#bulk-read
   const fb_lead_id = req.body.lead.lead_id;
@@ -44,7 +45,7 @@ router.post("/lead_retrieval", (req, res) => {
       params
     );
     lead_ad_response_json = JSON.stringify(lead_ad_response);
-    var lead_ad_response_fields = JSON.parse(lead_ad_response_json);
+    lead_ad_response_fields = JSON.parse(lead_ad_response_json);
     field_data = lead_ad_response_fields._data.field_data;
     res.send(field_data);
     logApiCallResult(" api call complete.", lead_ad_response);
@@ -52,10 +53,11 @@ router.post("/lead_retrieval", (req, res) => {
   getRawValue();
 });
 
+// Simulate a successful signup request, save the form data into MongoDB
 router.post("/signup", (req, res) => {
   console.log(" Received POST request at /signup ");
   console.log(req.body);
-  const signedUpUser = new signUpTemplateCopy({
+  const signedUpUser = new signUpTemplate({
     fullName: req.body.fullName,
     email: req.body.email,
     phone: req.body.phone,
@@ -74,10 +76,9 @@ router.post("/signup", (req, res) => {
       res.json(error);
     });
 });
-
 // read all records from the table
 router.get("/records", function (req, res, next) {
-  signUpTemplateCopy.find((err, records) => {
+  signUpTemplate.find((err, records) => {
     if (!err) {
       res.send(records);
     } else {

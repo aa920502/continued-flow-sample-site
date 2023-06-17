@@ -13,7 +13,7 @@ var corsOptions = {
 };
 
 mongoose.connect(process.env.DATABASE_ACCESS, () =>
-    console.log("Database connected")
+  console.log("Database connected")
 );
 
 app.use(express.urlencoded({ extended: true }));
@@ -22,6 +22,6 @@ app.use(cors(corsOptions));
 // we are using / as prepending route here, so backend call will be like: http://localhost:4000/api
 app.use("/", routeUrls);
 
-app.listen(port, () => {
+app.listen(process.env.PORT || port, () => {
   console.log(`server listening at port ${port}`);
 });

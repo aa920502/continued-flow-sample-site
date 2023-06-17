@@ -4,6 +4,7 @@ import Form from "./components/Form";
 import Home from "./components/Home";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Admin from "./components/Admin";
+import ConnectedTestComponent from "./components/TestPage";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/form" element={<Form />} />
           <Route path="/admin" element={<Admin />} />
+          <Route path="/test" element={<ConnectedTestComponent />} />
         </Routes>
       </Router>
     </div>
